@@ -58,11 +58,11 @@ public class TelaPrincipalBase extends JFrame {
 		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JButton btnCarregarLista = new JButton("Carregar lista");
+		JButton btnCarregarLista = new JButton("Baixar lista");
 		btnCarregarLista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				adicionarAbaLista();
-				btnCarregarLista.setEnabled(false);
+				//btnCarregarLista.setEnabled(false);
 			}
 		});
 		panel.add(btnCarregarLista);

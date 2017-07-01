@@ -9,12 +9,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class PainelLista extends JPanel {
 	private JTable table;
 	private ProdutoModel modelo;
+	List<Produto> lista;
 
 	/**
 	 * Create the panel.
@@ -27,7 +31,7 @@ public class PainelLista extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JButton btnCarregarLista = new JButton("Carregar lista");
+		JButton btnCarregarLista = new JButton("Baixar lista");
 		btnCarregarLista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				carregar();
@@ -43,6 +47,10 @@ public class PainelLista extends JPanel {
 		JButton btnAdicionarListaAo = new JButton("Adicionar lista ao banco");
 		btnAdicionarListaAo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				adicionarBanco();
+				btnAdicionarListaAo.setEnabled(false);
+			//	btnAdicionarListaAo.setName("Lista ja adicionada ao banco");
+				
 			}
 		});
 		GridBagConstraints gbc_btnAdicionarListaAo = new GridBagConstraints();
@@ -77,6 +85,40 @@ public class PainelLista extends JPanel {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 
+	}
+
+	protected void adicionarBanco() {
+		
+		try {
+			LeitorProdutoUrl url = new LeitorProdutoUrl();
+			lista = url.lerProdutos("http://www.master10.com.py/lista-txt/download");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		for(int i =1; i<lista.size();i++){
+			StringBuilder sb = new StringBuilder();
+			sb.append("INSERT INTO produto(codigo,descricao,valor) VALUES(");			
+			sb.append(lista.get(i).getCodigo());
+			sb.append(",'");
+			sb.append(lista.get(i).getDescricao());
+			sb.append("',");
+			sb.append(lista.get(i).getValorDolar());
+			sb.append(")");
+			sb.append(";");
+			//System.out.println(sb.toString());
+			
+			Connection con = ConexaoDB.getInstance().getConnection();
+			try {
+				PreparedStatement ps = con.prepareStatement(sb.toString());
+				ps.executeQuery();
+			} catch (SQLException e) {
+			}
+		}
+				
 	}
 
 	protected void carregar() {
