@@ -78,6 +78,12 @@ public class TelaPrincipalBase extends JFrame {
 		panel.add(btnCarregarLista, gbc_btnCarregarLista);
 		
 		JButton btnCadastrarCliente = new JButton("Cadastrar cliente");
+		btnCadastrarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cadastarCliente();
+				
+			}
+		});
 		GridBagConstraints gbc_btnCadastrarCliente = new GridBagConstraints();
 		gbc_btnCadastrarCliente.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCadastrarCliente.gridx = 1;
@@ -85,13 +91,36 @@ public class TelaPrincipalBase extends JFrame {
 		panel.add(btnCadastrarCliente, gbc_btnCadastrarCliente);
 		
 		JButton btnCriarOrcamento = new JButton("Criar orcamento");
+		btnCriarOrcamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				orcamento();
+			}
+		});
 		GridBagConstraints gbc_btnCriarOrcamento = new GridBagConstraints();
 		gbc_btnCriarOrcamento.gridx = 2;
 		gbc_btnCriarOrcamento.gridy = 0;
 		panel.add(btnCriarOrcamento, gbc_btnCriarOrcamento);
 		
-		//JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	//	contentPane.add(tabbedPane, BorderLayout.CENTER);
+	}
+
+	protected void orcamento() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void cadastarCliente() {
+		JPanel painelCliente = new PainelCliente();
+		PainelWrapper wrapper = new PainelWrapper();
+		wrapper.setConteudo(painelCliente);
+		wrapper.setTitulo("Cadastrar cliente");
+		
+		wrapper.setAcaoFechar(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tabbedPane.remove(wrapper);
+			}
+		});
+		
+		tabbedPane.addTab("Cadastrar cliente", wrapper);
 	}
 
 	protected void adicionarAbaLista() {

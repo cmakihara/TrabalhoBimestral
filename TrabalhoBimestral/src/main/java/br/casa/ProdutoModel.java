@@ -61,7 +61,7 @@ public class ProdutoModel extends AbstractTableModel{
 		case 1:
 			return p.getDescricao();
 		case 2:
-			return p.getValorDolar();
+			return "$\t"+p.getValorDolar();
 	//	case 3:
 	//		return p.getValorDolar().multiply(valor);
 		}
