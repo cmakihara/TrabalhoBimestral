@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
+
+
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -94,6 +96,19 @@ public class PainelOrcamento extends JPanel {
 		panel.add(txfBusca, gbc_txfBusca);
 		txfBusca.setColumns(10);
 		
+		JButton btnImprimir = new JButton("Imprimir");
+		btnImprimir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ReportManager rm = new ReportManager();
+				rm.imprimir();
+			}
+		});
+		GridBagConstraints gbc_btnImprimir = new GridBagConstraints();
+		gbc_btnImprimir.insets = new Insets(0, 0, 5, 0);
+		gbc_btnImprimir.gridx = 2;
+		gbc_btnImprimir.gridy = 0;
+		panel.add(btnImprimir, gbc_btnImprimir);
+		
 		JLabel lblNome = new JLabel("Nome");
 		GridBagConstraints gbc_lblNome = new GridBagConstraints();
 		gbc_lblNome.insets = new Insets(0, 0, 5, 5);
@@ -169,8 +184,11 @@ public class PainelOrcamento extends JPanel {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
+				
+				
 				if(e.getKeyCode()==KeyEvent.VK_F2){
 					abreBuscaProduto();
+					
 				}
 			}
 			
@@ -275,6 +293,12 @@ public class PainelOrcamento extends JPanel {
 
 	}
 
+	
+	
+	
+
+	
+
 	protected void adicionarCarrinho() {
 		
 		ProdutoDao produtoDao = new ProdutoDao();
@@ -331,7 +355,7 @@ public class PainelOrcamento extends JPanel {
 		List<Cliente> lista = dao.getTodos();
 		
 		this.modelo = new ClienteModel(lista);
-		// this.modelo = new ContatoModel();
+		
 		table.setModel(modelo);
 		
 		table.addMouseListener(new MouseAdapter(){

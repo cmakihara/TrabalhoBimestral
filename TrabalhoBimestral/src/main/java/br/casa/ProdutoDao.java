@@ -14,7 +14,8 @@ import java.util.List;
 public class ProdutoDao {
 	
 	
-	private static final String SQL_SELECT = "select * from produto;";
+	private static final String SQL_SELECTALL = "select * from produto;";
+	private static final String SQL_SELECT = "select * from produto where descricao ILIKE 'a%';";
 	private static final String SQL_INSERT = "insert into orcamento1(codigo, descricao,valor,quantidade)values(?, ?, ?, ?)";
 	private static final String SQL_DELETE = "delete from produto where id = ?;";
 	private Connection con;
@@ -45,9 +46,11 @@ public class ProdutoDao {
 	public List<Produto> getTodos() {
 		
 		List<Produto> lista = new ArrayList<>();
-		try (PreparedStatement ps = con	.prepareStatement(SQL_SELECT);
-				ResultSet rs = ps.executeQuery()) {
-			
+		
+		
+		try (PreparedStatement ps = con	.prepareStatement(SQL_SELECT);				
+				
+			ResultSet rs = ps.executeQuery()) {		
 			while (rs.next()) {
 				
 				Produto p = new Produto();
@@ -65,5 +68,28 @@ public class ProdutoDao {
 		
 		
 	}
+//	public List<Produto> getTodos() {
+//		
+//		List<Produto> lista = new ArrayList<>();
+//		try (PreparedStatement ps = con	.prepareStatement(SQL_SELECT);				
+//				
+//			ResultSet rs = ps.executeQuery()) {		
+//			while (rs.next()) {
+//				
+//				Produto p = new Produto();
+//				p.setCodigo(rs.getLong(2));
+//				p.setDescricao(rs.getString(3));
+//				p.setValorDolar(rs.getBigDecimal(4));
+//				lista.add(p);
+//			}
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return lista;
+//		
+//		
+//	}
 
 }
