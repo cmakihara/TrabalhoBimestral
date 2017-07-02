@@ -156,6 +156,4 @@ public class TelaPrincipal extends JFrame {
 		tabbedPane.addTab("Lista", wrapper);
 		
 	}
-	
-
-}
+	}
