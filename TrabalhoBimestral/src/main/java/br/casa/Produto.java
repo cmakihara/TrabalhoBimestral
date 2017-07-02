@@ -8,6 +8,7 @@ public class Produto {
 	private String descricao;
 	private BigDecimal valorDolar;
 	private BigDecimal dolar;
+	private int quantidade;
 	
 	public Long getCodigo() {
 		return codigo;
@@ -36,6 +37,12 @@ public class Produto {
 	}
 	public void setDolar(BigDecimal dolar) {
 		this.dolar = dolar;
+	}
+	public int getQuantidade() {
+		return quantidade;
+	}
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 	
 	

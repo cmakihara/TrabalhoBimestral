@@ -77,4 +77,8 @@ public class ClienteModel extends AbstractTableModel{
 		
 	}
 
+	public Cliente getCliente(int idx) {
+		return lista.get(idx);
+	}
+
 }

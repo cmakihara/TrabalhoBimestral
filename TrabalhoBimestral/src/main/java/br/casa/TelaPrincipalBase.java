@@ -104,7 +104,18 @@ public class TelaPrincipalBase extends JFrame {
 	}
 
 	protected void orcamento() {
-		// TODO Auto-generated method stub
+		JPanel  painelOrcamento = new PainelOrcamento();
+		PainelWrapper wrapper = new PainelWrapper();
+		wrapper.setConteudo(painelOrcamento);
+		wrapper.setTitulo("Orcamento");
+		
+		wrapper.setAcaoFechar(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tabbedPane.remove(wrapper);
+			}
+		});
+		
+		tabbedPane.addTab("Orcamento", wrapper);
 		
 	}
 
