@@ -1,4 +1,4 @@
-package br.casa;
+package br.casa.conexao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

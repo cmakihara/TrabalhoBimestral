@@ -1,15 +1,16 @@
-package br.casa;
+package br.casa.principal;
 
 import java.sql.Connection;
 import java.util.Locale;
 
+import br.casa.conexao.ConexaoDB;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class ReportManager {
 	
-	private static final String JASPER_CONTATO = "C:\\Users\\Maki\\JaspersoftWorkspace\\MyReports\\dois.jasper";
+	private static final String JASPER_CONTATO = "C:\\Users\\Maki\\JaspersoftWorkspace\\MyReports\\testeq.jasper";
 
 	public void imprimir() {
 		JasperPrint jasperPrintPDF = getPrint();

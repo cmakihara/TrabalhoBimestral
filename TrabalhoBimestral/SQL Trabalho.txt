@@ -1,0 +1,29 @@
+
+
+create table produto(
+    id serial,
+    codigo int,
+    descricao varchar(100),
+    valor numeric(17,2)    
+);
+
+ create table cliente(
+     id serial,
+     nome varchar(255),
+     telefone varchar(15),
+     cpf varchar(11)
+     
+);
+
+
+create table orcamento1(
+    id serial,
+    codigo int,
+    descricao varchar(100),
+    valor_unidade numeric(17,2),
+    quantidade int,
+    valor_total_produto numeric(17,2)
+);
+
+create view total as select sum(valor_total_produtos)as tot from orcamento1;
+

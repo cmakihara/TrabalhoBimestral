@@ -1,4 +1,4 @@
-package br.casa;
+package br.casa.principal;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -57,9 +57,7 @@ public class LeitorProdutoUrl {
 			String strValorSemponto = strValorOrg.replaceAll("\\.", "");
 			String strValorIngles = strValorSemponto.replaceAll(",", ".");
 			produto.setValorDolar(new BigDecimal(strValorIngles));
-			//produto.setValorDolar(new BigDecimal(strValor.replaceAll("\\.", ","))); duas string 
 			
-			//System.out.println("SIM");
 			
 		}else{
 			throw new RuntimeException("Linha invalida: "+ linha);

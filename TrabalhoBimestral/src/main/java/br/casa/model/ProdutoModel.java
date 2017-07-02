@@ -1,9 +1,11 @@
-package br.casa;
+package br.casa.model;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+
+import br.casa.principal.Produto;
 
 
 
@@ -12,7 +14,7 @@ public class ProdutoModel extends AbstractTableModel{
 	private List<Produto> lista;
 	private BigDecimal valor;
 	
-	ProdutoModel(List<Produto> lista) {
+	public ProdutoModel(List<Produto> lista) {
 		
 		this.lista = lista;
 		//this.valor = dolar;
@@ -43,8 +45,7 @@ public class ProdutoModel extends AbstractTableModel{
 			return "Descrição";
 		case 2:
 			return "Valor ";
-		//case 3 :
-		//	return "Valor em real";
+		
 		}
 		
 		
@@ -62,8 +63,7 @@ public class ProdutoModel extends AbstractTableModel{
 			return p.getDescricao();
 		case 2:
 			return "$\t"+p.getValorDolar();
-	//	case 3:
-	//		return p.getValorDolar().multiply(valor);
+
 		}
 		
 		return null;
@@ -72,6 +72,7 @@ public class ProdutoModel extends AbstractTableModel{
 	public Produto getProduto(int idx) {
 		
 		return lista.get(idx);
+		
 	}
 
 

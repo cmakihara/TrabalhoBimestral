@@ -1,4 +1,4 @@
-package br.casa;
+package br.casa.telas;
 
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
@@ -6,6 +6,11 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import br.casa.conexao.ConexaoDB;
+import br.casa.model.ClienteModel;
+import br.casa.principal.Cliente;
+
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;

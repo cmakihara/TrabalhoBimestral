@@ -1,4 +1,4 @@
-package br.casa;
+package br.casa.telas;
 
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
@@ -7,6 +7,12 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import br.casa.conexao.ConexaoDB;
+import br.casa.model.ProdutoModel;
+import br.casa.principal.LeitorProdutoUrl;
+import br.casa.principal.Produto;
+
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -49,7 +55,7 @@ public class PainelLista extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				adicionarBanco();
 				btnAdicionarListaAo.setEnabled(false);
-			//	btnAdicionarListaAo.setName("Lista ja adicionada ao banco");
+				btnAdicionarListaAo.setText("Lista ja adicionada ao banco");
 				
 			}
 		});

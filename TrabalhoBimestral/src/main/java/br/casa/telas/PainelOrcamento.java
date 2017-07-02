@@ -1,4 +1,4 @@
-package br.casa;
+package br.casa.telas;
 
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
@@ -10,17 +10,23 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.function.Consumer;
+
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
 
-
+import br.casa.conexao.ClienteDao;
+import br.casa.conexao.ProdutoDao;
+import br.casa.model.ClienteModel;
+import br.casa.model.OrcamentoModel;
+import br.casa.model.ProdutoModel;
+import br.casa.principal.Cliente;
+import br.casa.principal.Produto;
+import br.casa.principal.ReportManager;
 
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
+
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -33,7 +39,7 @@ public class PainelOrcamento extends JPanel {
 	private JTextField txfBtelefone;
 	private JTextField txfBcpf;
 	private JTable table;
-	private JTextField textField_1;
+	public JTextField textField_1;
 	private JTextField txfBcodigo;
 	private JTextField txfBdescricao;
 	private JTextField txfBvalor;
@@ -42,11 +48,14 @@ public class PainelOrcamento extends JPanel {
 	private Cliente clienteSelecionado;
 	private ProdutoModel modelo2;
 	private Produto produtoSelecionado;
+	private OrcamentoModel modelo3;
 
+	
 	/**
 	 * Create the panel.
 	 */
 	public PainelOrcamento() {
+		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
@@ -96,7 +105,7 @@ public class PainelOrcamento extends JPanel {
 		panel.add(txfBusca, gbc_txfBusca);
 		txfBusca.setColumns(10);
 		
-		JButton btnImprimir = new JButton("Imprimir");
+		JButton btnImprimir = new JButton("Imprimir orcamento");
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ReportManager rm = new ReportManager();
@@ -179,7 +188,7 @@ public class PainelOrcamento extends JPanel {
 		gbc_lblBuscaProdutof.gridy = 0;
 		panel_2.add(lblBuscaProdutof, gbc_lblBuscaProdutof);
 		
-		textField_1 = new JTextField();
+		textField_1 = new JTextField();	
 		textField_1.addKeyListener(new KeyAdapter() {
 
 			@Override
@@ -208,10 +217,22 @@ public class PainelOrcamento extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_btnAdicionarAoCarrinho = new GridBagConstraints();
-		gbc_btnAdicionarAoCarrinho.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAdicionarAoCarrinho.gridx = 3;
+		gbc_btnAdicionarAoCarrinho.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAdicionarAoCarrinho.gridx = 2;
 		gbc_btnAdicionarAoCarrinho.gridy = 0;
 		panel_2.add(btnAdicionarAoCarrinho, gbc_btnAdicionarAoCarrinho);
+		
+		JButton btnVerOrcamento = new JButton("Ver orcamento");
+		btnVerOrcamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				abreOrcamento();
+			}
+		});
+		GridBagConstraints gbc_btnVerOrcamento = new GridBagConstraints();
+		gbc_btnVerOrcamento.insets = new Insets(0, 0, 5, 0);
+		gbc_btnVerOrcamento.gridx = 3;
+		gbc_btnVerOrcamento.gridy = 0;
+		panel_2.add(btnVerOrcamento, gbc_btnVerOrcamento);
 		
 		JLabel lblCodigo = new JLabel("Codigo");
 		GridBagConstraints gbc_lblCodigo = new GridBagConstraints();
@@ -292,12 +313,30 @@ public class PainelOrcamento extends JPanel {
 		scrollPane.setViewportView(table);
 
 	}
-
+	protected void abreOrcamento() {
+		ProdutoDao dao = new ProdutoDao();
+		List<Produto> lista = dao.getOrcamento();
+		
+		this.modelo3 = new OrcamentoModel(lista);
 	
-	
-	
-
-	
+		table.setModel(modelo3);
+		
+		table.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					int idx = table.getSelectedRow();
+					if (idx < 0) {
+						System.out.println("Não tem linha selecionada");
+					} else {
+						System.out.println("Linha " + idx);
+						
+					}
+				}
+			}
+		});
+		
+	}
 
 	protected void adicionarCarrinho() {
 		
@@ -307,28 +346,25 @@ public class PainelOrcamento extends JPanel {
 		p.setCodigo(Long.parseLong(txfBcodigo.getText()));
 		p.setDescricao(txfBdescricao.getText().trim());
 		p.setValorDolar(new BigDecimal(txfBvalor.getText()));
-		p.setQuantidade(Integer.parseInt(txfQuantidade.getText()));
-			
+		p.setQuantidade(Integer.parseInt(txfQuantidade.getText()));			
 				
 		produtoDao.inserir(p);	
 		
 	}
 
 	protected void abreBuscaProduto() {
+		table.setVisible(true);
 		ProdutoDao dao = new ProdutoDao();
-		List<Produto> lista = dao.getTodos();
-		
-		this.modelo2 = new ProdutoModel(lista);
-	
-		table.setModel(modelo2);
-		
+		List<Produto> lista = dao.getTodos();		
+		this.modelo2 = new ProdutoModel(lista);	
+		table.setModel(modelo2);		
 		table.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
+				if (e.getClickCount() == 1) {
 					int idx = table.getSelectedRow();
 					if (idx < 0) {
-						System.out.println("NÃ£o hÃ¡ linha selecionada");
+						System.out.println("Não tem linha selecionada");
 					} else {
 						System.out.println("Linha " + idx);
 						carregarLinhaProduto(idx);
@@ -338,6 +374,7 @@ public class PainelOrcamento extends JPanel {
 		});
 		
 	}
+	
 
 	protected void carregarLinhaProduto(int idx) {
 		Produto p = this.modelo2.getProduto(idx);
@@ -349,44 +386,36 @@ public class PainelOrcamento extends JPanel {
 		
 	}
 
-	protected void abreBusca() {
-
+	protected void abreBusca() {		
+		
 		ClienteDao dao = new ClienteDao();
-		List<Cliente> lista = dao.getTodos();
-		
-		this.modelo = new ClienteModel(lista);
-		
-		table.setModel(modelo);
-		
+		List<Cliente> lista = dao.getTodos();		
+		this.modelo = new ClienteModel(lista);		
+		table.setModel(modelo);		
 		table.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
-					int idx = table.getSelectedRow();
-					if (idx < 0) {
-						System.out.println("NÃ£o hÃ¡ linha selecionada");
+					int idx2 = table.getSelectedRow();
+					if (idx2 < 0) {
+						System.out.println("Não tem linha selecionada");
 					} else {
-						System.out.println("Linha " + idx);
-						carregarLinha(idx);
+						System.out.println("Linha " + idx2);
+						carregarLinha(idx2);
 					}
 				}
 			}
 		});
-	
 		
 	}
 
-	protected void carregarLinha(int idx) {
-		Cliente c = this.modelo.getCliente(idx);
+	protected void carregarLinha(int idx2) {
+		Cliente c = this.modelo.getCliente(idx2);
 		this.clienteSelecionado = c;		
 		txtBnome.setText(c.getNome());;
 		txfBtelefone.setText(c.getTelefone());
-		txfBcpf.setText(c.getCpf());	
-	//	table.setModel(new TableModel() {   mudar para apagar table
-			
+		txfBcpf.setText(c.getCpf());
 			
 	}
-	
-
-	
+		
 }

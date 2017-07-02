@@ -1,4 +1,4 @@
-package br.casa;
+package br.casa.principal;
 
 public class Cliente {
 

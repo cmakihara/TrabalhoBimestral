@@ -1,4 +1,4 @@
-package br.casa;
+package br.casa.principal;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -7,6 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import br.casa.telas.PainelCliente;
+import br.casa.telas.PainelLista;
+import br.casa.telas.PainelOrcamento;
+import br.casa.telas.PainelWrapper;
 
 import java.awt.GridBagLayout;
 import javax.swing.JTabbedPane;
@@ -16,7 +20,7 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class TelaPrincipalBase extends JFrame {
+public class TelaPrincipal extends JFrame {
 
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
@@ -28,7 +32,7 @@ public class TelaPrincipalBase extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaPrincipalBase frame = new TelaPrincipalBase();
+					TelaPrincipal frame = new TelaPrincipal();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +44,7 @@ public class TelaPrincipalBase extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaPrincipalBase() {
+	public TelaPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
@@ -107,7 +111,7 @@ public class TelaPrincipalBase extends JFrame {
 		JPanel  painelOrcamento = new PainelOrcamento();
 		PainelWrapper wrapper = new PainelWrapper();
 		wrapper.setConteudo(painelOrcamento);
-		wrapper.setTitulo("Orcamento");
+		wrapper.setTitulo("Comprar");
 		
 		wrapper.setAcaoFechar(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -115,7 +119,7 @@ public class TelaPrincipalBase extends JFrame {
 			}
 		});
 		
-		tabbedPane.addTab("Orcamento", wrapper);
+		tabbedPane.addTab("Comprar", wrapper);
 		
 	}
 

@@ -1,9 +1,11 @@
-package br.casa;
+package br.casa.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+
+import br.casa.principal.Cliente;
 
 
 
@@ -77,8 +79,11 @@ public class ClienteModel extends AbstractTableModel{
 		
 	}
 
-	public Cliente getCliente(int idx) {
-		return lista.get(idx);
+	public Cliente getCliente(int idx2) {
+			
+			return lista.get(idx2);
+		
+		
 	}
 
 }
