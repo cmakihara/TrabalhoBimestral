@@ -25,5 +25,5 @@ create table orcamento1(
     valor_total_produto numeric(17,2)
 );
 
-create view total as select sum(valor_total_produtos)as tot from orcamento1;
+create view total as select sum(valor_total_produto)as tot from orcamento1;
 
